@@ -2,11 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import {
-    Sidebar,
     SidebarBody,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarHeading,
     SidebarItem,
     SidebarLabel,
     SidebarSection,
@@ -14,22 +10,10 @@ import {
 } from '@/components/sidebar';
 
 import {
-    ArrowRightStartOnRectangleIcon,
-    ChevronDownIcon,
-    ChevronUpIcon,
-    Cog8ToothIcon,
-    LightBulbIcon,
-    PlusIcon,
-    ShieldCheckIcon,
-    UserCircleIcon,
-} from '@heroicons/react/16/solid'
-import {
     Cog6ToothIcon,
     HomeIcon,
     QuestionMarkCircleIcon,
-    SparklesIcon,
     Square2StackIcon,
-    TicketIcon,
     UsersIcon,
 } from '@heroicons/react/20/solid'
 
@@ -40,7 +24,7 @@ export default function MainNavBarItems() {
     return (
         <SidebarBody>
             <SidebarSection>
-                <SidebarItem href="/" current={pathname === '/'}>
+                <SidebarItem href="/dashboard" current={pathname === '/dashboard'}>
                     <HomeIcon />
                     <SidebarLabel>Home</SidebarLabel>
                 </SidebarItem>

@@ -11,10 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { LoginSchema } from "../../../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import {
   Form,
@@ -29,12 +29,17 @@ import { useForm } from "react-hook-form";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
+import SocialBtns from "../social";
 
 export default function LoginForm() {
 
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
+    ?  "This email is already being used."
+    : "";
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -120,14 +125,12 @@ export default function LoginForm() {
                 <Button type="submit" className="w-full" disabled={isPending}>
                   Login
                 </Button>
-                <FormError message={error} />
+                <FormError message={error || urlError} />
                 <FormSuccess message={success} />
               </div>
             </form>
           </Form>
-          <Button variant="outline" className="w-full mt-4">
-            Login with Google
-          </Button>
+          <SocialBtns />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="/auth/signup" className="underline">

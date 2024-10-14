@@ -28,6 +28,7 @@ import { useTransition, useState } from "react";
 import { SignupSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { register } from "@/actions/register";
+import SocialBtns from "../social"
 
 export default function SignupForm() {
 
@@ -135,9 +136,7 @@ export default function SignupForm() {
                 <Button type="submit" className="w-full">
                   Create an account
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Sign up with GitHub
-                </Button>
+                <SocialBtns />
                 <FormError message={error} />
                 <FormSuccess message={success} />
               </div>

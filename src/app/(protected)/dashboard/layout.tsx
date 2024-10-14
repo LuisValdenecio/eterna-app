@@ -10,17 +10,12 @@ import {
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/components/navbar'
 import {
   Sidebar,
-  SidebarBody,
   SidebarFooter,
   SidebarHeader,
-  SidebarHeading,
   SidebarItem,
   SidebarLabel,
-  SidebarSection,
-  SidebarSpacer,
 } from '@/components/sidebar'
 import { SidebarLayout } from '@/components/sidebar-layout'
-import { getEvents } from '@/data'
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -31,15 +26,6 @@ import {
   ShieldCheckIcon,
   UserCircleIcon,
 } from '@heroicons/react/16/solid'
-import {
-  Cog6ToothIcon,
-  HomeIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
-  UsersIcon,
-} from '@heroicons/react/20/solid'
 
 import { auth, signOut } from '@/../../auth'
 import MainNavBarItems from '@/components/main-navbar-items'
@@ -86,7 +72,6 @@ export default async function ApplicationLayout({
 }) {
 
   const session = await auth();
-  console.log("SESSION: ", session);
 
   return (
     <SidebarLayout
