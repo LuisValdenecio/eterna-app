@@ -41,7 +41,7 @@ import {
   UsersIcon,
 } from '@heroicons/react/20/solid'
 
-import { signOut } from '@/../../auth'
+import { auth, signOut } from '@/../../auth'
 import MainNavBarItems from '@/components/main-navbar-items'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
@@ -65,26 +65,29 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <ArrowRightStartOnRectangleIcon />
         <DropdownLabel>
           <form action={async () => {
-              "use server";
-              await signOut();
+            "use server";
+            await signOut();
           }}>
             <button type='submit'>
               Sign out
             </button>
           </form>
-          
+
         </DropdownLabel>
       </DropdownItem>
     </DropdownMenu>
   )
 }
 
-export default function ApplicationLayout({
+export default async function ApplicationLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  
+
+  const session = await auth();
+  console.log("SESSION: ", session);
+
   return (
     <SidebarLayout
       navbar={
@@ -140,9 +143,9 @@ export default function ApplicationLayout({
                 <span className="flex min-w-0 items-center gap-3">
                   <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">{session?.user?.name}</span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      erica@example.com
+                      {session?.user?.email}
                     </span>
                   </span>
                 </span>
