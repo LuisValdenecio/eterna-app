@@ -1,3 +1,5 @@
+import AddMemberDialog from '@/components/add-member-dialog'
+import CreateTeamDialog from '@/components/add-team-dialog'
 import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
@@ -15,8 +17,8 @@ export default async function Orders() {
   return (
     <>
       <div className="flex items-end justify-between gap-4">
-        <Heading>Orders</Heading>
-        <Button className="-my-0.5">Create order</Button>
+        <Heading>Teams</Heading>
+        <CreateTeamDialog />
       </div>
       <Table className="mt-8 [--gutter:theme(spacing.6)] lg:[--gutter:theme(spacing.10)]">
         <TableHead>

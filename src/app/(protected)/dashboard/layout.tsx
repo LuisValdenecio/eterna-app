@@ -1,5 +1,3 @@
-'use client'
-
 import { Avatar } from '@/components/avatar'
 import {
   Dropdown,
@@ -42,7 +40,9 @@ import {
   TicketIcon,
   UsersIcon,
 } from '@heroicons/react/20/solid'
-import { usePathname } from 'next/navigation'
+
+import { signOut } from '@/../../auth'
+import MainNavBarItems from '@/components/main-navbar-items'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
   return (
@@ -61,21 +61,30 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <DropdownLabel>Share feedback</DropdownLabel>
       </DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="#">
+      <DropdownItem>
         <ArrowRightStartOnRectangleIcon />
-        <DropdownLabel>Sign out</DropdownLabel>
+        <DropdownLabel>
+          <form action={async () => {
+              "use server";
+              await signOut();
+          }}>
+            <button type='submit'>
+              Sign out
+            </button>
+          </form>
+          
+        </DropdownLabel>
       </DropdownItem>
     </DropdownMenu>
   )
 }
 
-export default async function ApplicationLayout({
+export default function ApplicationLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  let pathname = usePathname()
-
+  
   return (
     <SidebarLayout
       navbar={
@@ -123,38 +132,7 @@ export default async function ApplicationLayout({
             </Dropdown>
           </SidebarHeader>
 
-          <SidebarBody>
-            <SidebarSection>
-              <SidebarItem href="/" current={pathname === '/'}>
-                <HomeIcon />
-                <SidebarLabel>Home</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/files" current={pathname.startsWith('/dashboard/files')}>
-                <Square2StackIcon />
-                <SidebarLabel>Files</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/teams" current={pathname.startsWith('/dashboard/teams')}>
-                <UsersIcon />
-                <SidebarLabel>Teams</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/settings" current={pathname.startsWith('/dashboard/settings')}>
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-
-            
-
-            <SidebarSpacer />
-
-            <SidebarSection>
-              <SidebarItem href="#">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
-              
-            </SidebarSection>
-          </SidebarBody>
+          <MainNavBarItems />
 
           <SidebarFooter className="max-lg:hidden">
             <Dropdown>
