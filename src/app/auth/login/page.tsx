@@ -38,7 +38,7 @@ export default function LoginForm() {
   const [success, setSuccess] = useState<string | undefined>("");
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ?  "This email is already being used."
+    ? "This email is already being used."
     : "";
 
   const form = useForm<z.infer<typeof LoginSchema>>({

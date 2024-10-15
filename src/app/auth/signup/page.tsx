@@ -133,7 +133,7 @@ export default function SignupForm() {
                     )}
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isPending}>
                   Create an account
                 </Button>
                 <SocialBtns />
