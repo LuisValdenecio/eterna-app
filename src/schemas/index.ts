@@ -9,6 +9,12 @@ export const LoginSchema = z.object({
     })
 });
 
+export const NewPasswordSchema = z.object({
+    password: z.string().min(1, {
+        message: "Password is required",
+    })
+})
+
 export const SignupSchema = z.object({
     name: z.string().min(1, {
         message: 'type in your name'

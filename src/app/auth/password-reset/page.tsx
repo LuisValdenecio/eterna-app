@@ -11,10 +11,10 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LoginSchema, PasswordResetSchema } from "../../../schemas";
+import { PasswordResetSchema } from "../../../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { passwordReset } from "@/actions/password-reset";
 
 import {
     Form,
@@ -32,7 +32,9 @@ import { login } from "@/actions/login";
 
 export default function LoginForm() {
 
-    const [isPending, startTransition] = useTransition()
+    const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState<string | undefined>("");
+    const [success, setSuccess] = useState<string | undefined>("");
 
     const form = useForm<z.infer<typeof PasswordResetSchema>>({
         resolver: zodResolver(PasswordResetSchema),
@@ -43,12 +45,16 @@ export default function LoginForm() {
 
     const onSubmit = (values: z.infer<typeof PasswordResetSchema>) => {
         startTransition(async () => {
-            console.log(values)
+            passwordReset(values)
+                .then((data) => {
+                    setError(data?.error);
+                    setSuccess(data?.success);
+                });
         });
     }
 
     return (
-        <div className="pt-6">
+        <div className="flex items-center justify-center h-screen w-full">
             <Card className="mx-auto max-w-sm">
                 <CardHeader>
                     <CardTitle className="text-2xl">Password Reset</CardTitle>
@@ -85,10 +91,10 @@ export default function LoginForm() {
 
 
                                 <Button type="submit" className="w-full" disabled={isPending}>
-                                    Reset
+                                    Send reset email
                                 </Button>
-                                <FormError message="" />
-                                <FormSuccess message="" />
+                                <FormError message={error} />
+                                <FormSuccess message={success} />
                             </div>
                         </form>
                     </Form>

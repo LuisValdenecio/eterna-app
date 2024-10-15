@@ -61,7 +61,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="pt-6">
+    <div className="flex items-center justify-center h-screen w-full">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -72,7 +72,7 @@ export default function LoginForm() {
         <CardContent>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}  
             >
               <div className="grid gap-4">
                 <div className="grid gap-2">
